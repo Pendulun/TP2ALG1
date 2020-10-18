@@ -17,10 +17,13 @@ $(BUILD)$(JOGODIM)Ourive.o: $(SRC)$(JOGODIM)Ourive.cpp $(INCLUDE)$(JOGODIM)Ouriv
 	$(CC) $(CFLAGS) -I $(INCLUDE)$(JOGODIM) -c $(SRC)$(JOGODIM)Ourive.cpp -o $(BUILD)$(JOGODIM)Ourive.o
 
 $(BUILD)$(JOGODIM)Diamante.o: $(SRC)$(JOGODIM)Diamante.cpp $(INCLUDE)$(JOGODIM)Diamante.hpp 
-	$(CC) $(CFLAGS) -c $(SRC)$(JOGODIM)Diamante.cpp -o $(BUILD)$(JOGODIM)Diamante.o
+	$(CC) $(CFLAGS) -I $(INCLUDE)$(JOGODIM) -c $(SRC)$(JOGODIM)Diamante.cpp -o $(BUILD)$(JOGODIM)Diamante.o
 
 test:	$(EXEC)
 	@bash run_tests.sh $(EXEC) $(TMPOUT)
+
+clean:
+	rm -f $(BUILD)*/*.o
 
 mem:
 	valgrind --leak-check=full --show-leak-kinds=all $(EXEC) ./testcases/EX0
