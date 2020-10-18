@@ -3,12 +3,13 @@
 #include <fstream>
 #include <string>
 #include <iostream>
+#include <list>
 #include "Diamante.hpp"
 namespace JogoDiamantes{
 
 	class Ourive{
 	private:
-		Diamante** colecaoDiamantes=nullptr;
+		std::list<Diamante*>* colecaoDiamantes=nullptr;
 		unsigned int tamColecao=0;
 	public:
 		void criaColecao(std::string arqEntrada);

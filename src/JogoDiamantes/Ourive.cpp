@@ -4,10 +4,12 @@
 namespace JogoDiamantes{
 
 	Ourive::~Ourive(){
-		for(unsigned int i=0;i<this->tamColecao;i++){
-			delete this->colecaoDiamantes[i];
+		for(auto iteradorColecao=(*this->colecaoDiamantes).begin();
+			iteradorColecao!=(*this->colecaoDiamantes).end();
+			iteradorColecao++){
+			delete *iteradorColecao;
 		}
-		delete this->colecaoDiamantes;
+		delete[] this->colecaoDiamantes;
 	}
 
 	void Ourive::criaColecao(std::string arqEntrada){
@@ -17,12 +19,12 @@ namespace JogoDiamantes{
 	  		unsigned int K=0;
 	  		fs>>K;
 	  		this->tamColecao = K;
-	  		this->colecaoDiamantes = new Diamante*[this->tamColecao];
+	  		this->colecaoDiamantes = new std::list<Diamante*>[this->tamColecao];
 	  		unsigned int peso=0;
 	  		for(unsigned int linha=0;linha<this->tamColecao;linha++){
 	  				fs>>peso;
+	  				(*this->colecaoDiamantes).push_back(new Diamante(peso));
 	  				std::cout<<"Novo Peso: "<<peso<<std::endl;
-	  				this->colecaoDiamantes[linha]=new Diamante(peso);
 	  		}
 	  		fs.close();
  		 }else{
@@ -33,6 +35,7 @@ namespace JogoDiamantes{
 	}
 
 	void Ourive::brutaForca(){
+
 		std::cout<<"Entrou Forca Bruta"<<std::endl;
 	}
 }
