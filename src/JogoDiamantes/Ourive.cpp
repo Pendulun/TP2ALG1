@@ -33,7 +33,7 @@ namespace JogoDiamantes{
   		}
 	}
 
-	unsigned int Ourive::brutaForca(){
+	unsigned int Ourive::forcaBruta(){
 		while((*this->colecaoDiamantes).size()>1){
 			//Acha os dois maiores
 			unsigned int maiorPeso=0,segundoPeso=0,indexMaior=0,indexSegundo=0,count=0,diferenca=0;

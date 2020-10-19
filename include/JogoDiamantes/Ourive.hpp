@@ -19,7 +19,7 @@ namespace JogoDiamantes{
 		bool areEqual();
 	public:
 		void criaColecao(std::string arqEntrada);
-		unsigned int brutaForca();
+		unsigned int forcaBruta();
 		~Ourive();
 	};
 }
