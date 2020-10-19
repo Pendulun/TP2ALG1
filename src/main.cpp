@@ -12,7 +12,7 @@ int main(int argc, char *argv[]){
 				std::string arq_entrada = argv[1];
 				JogoDiamantes::Ourive* ourive = new JogoDiamantes::Ourive();
 				ourive->criaColecao(arq_entrada);
-				ourive->brutaForca();
+				std::cout<<"Peso final: "<<ourive->brutaForca()<<std::endl;
 				delete ourive;
 				// auto stop = std::chrono::high_resolution_clock::now();
 				// auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);

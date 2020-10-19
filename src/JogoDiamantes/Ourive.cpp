@@ -24,7 +24,6 @@ namespace JogoDiamantes{
 	  		for(unsigned int linha=0;linha<this->tamColecao;linha++){
 	  				fs>>peso;
 	  				(*this->colecaoDiamantes).push_back(new Diamante(peso));
-	  				std::cout<<"Novo Peso: "<<peso<<std::endl;
 	  		}
 	  		fs.close();
  		 }else{
@@ -34,63 +33,73 @@ namespace JogoDiamantes{
   		}
 	}
 
-	void Ourive::brutaForca(){
-		std::cout<<"Entrou Forca Bruta"<<std::endl;
+	unsigned int Ourive::brutaForca(){
 		while((*this->colecaoDiamantes).size()>1){
-			std::cout<<"Entrou While"<<std::endl;
-			auto primeiro = (*this->colecaoDiamantes).begin();
-			unsigned int count=0;
-			//Para cada elemento
+			//Acha os dois maiores
+			unsigned int maiorPeso=0,segundoPeso=0,indexMaior=0,indexSegundo=0,count=0,diferenca=0;
+			bool isEqual=areEqual();
 			for(auto elemento=(*this->colecaoDiamantes).begin();
-			elemento!=(*this->colecaoDiamantes).end();
-			elemento++){
-				std::cout<<"Entrou For"<<std::endl;
-				unsigned int minDiferenca=NULL;
-				unsigned int minIndex=0;
-				auto elementosAcima = std::next((*this->colecaoDiamantes).begin(),count); //A partir do próximo elemento
-				std::list<Diamante*>::iterator elementoPar;
-				std::cout<<"Elemento Num:"<<count<<" com peso: "<< (*elemento)->getPeso()<<std::endl;
-				unsigned int index=0;
-				while(elementosAcima!=(*this->colecaoDiamantes).end()){
-					std::cout<<"Entrou While 2"<<std::endl;
-					int diferenca=0;
-					diferenca=(*elemento)->getPeso()-(*elementosAcima)->getPeso();
-					if(diferenca<0){
-						diferenca = diferenca*(-1);
-					}
-					if(minDiferenca==NULL || diferenca<minDiferenca){
-						minDiferenca=diferenca;
-						minIndex=count+index;
-						elementoPar=elementosAcima;
-					}
-					index++;
-					elementosAcima = std::next(elementosAcima);
+				elemento!=(*this->colecaoDiamantes).end();
+				elemento++){
+
+				if((*elemento)->getPeso()>maiorPeso){
+					segundoPeso=maiorPeso;
+					indexSegundo=indexMaior;
+					maiorPeso=(*elemento)->getPeso();
+					indexMaior=count;
+					count++;
+					continue;
 				}
-				imprimeColecao();
-				std::cout<<"Menor diferenca:"<<minDiferenca<<" Index: "<<minIndex<<" de peso:";
-				std::cout<<getPesoAt(minIndex)<<std::endl;
-				if(minDiferenca==0){
-					Diamante* elementoDel = (*elemento);
-					Diamante* elementoParDel = (*elementoPar);
-					(*this->colecaoDiamantes).erase(elemento);
-					(*this->colecaoDiamantes).erase(elementoPar);
-					delete elementoDel;
-					delete elementoParDel;
-				}else if(((*elemento)->getPeso()-(*elementoPar)->getPeso())>0){
-					Diamante* elementoParDel = (*elementoPar);
-					(*elemento)->setPeso(minDiferenca);
-					(*this->colecaoDiamantes).erase(elementoPar);
-					delete elementoParDel;
-				}else if(((*elemento)->getPeso()-(*elementoPar)->getPeso())<0){
-					Diamante* elementoDel = (*elemento);
-					(*elementoPar)->setPeso(minDiferenca);
-					(*this->colecaoDiamantes).erase(elemento);
-					delete elementoDel;
+				if(isEqual){
+					segundoPeso=(*elemento)->getPeso();
+					indexSegundo=count;
+					break;
+				}else{
+					if((*elemento)->getPeso()>segundoPeso && (*elemento)->getPeso()!=maiorPeso){
+						segundoPeso=(*elemento)->getPeso();
+						indexSegundo=count;
+					}
 				}
-				imprimeColecao();
 				count++;
+
+			}
+			//Faz a diferença
+			auto maior = (*this->colecaoDiamantes).begin();
+			auto segundo = (*this->colecaoDiamantes).begin();
+			std::advance(maior,indexMaior);
+			std::advance(segundo,indexSegundo);
+			if(isEqual){
+				(*this->colecaoDiamantes).erase(maior);
+				(*this->colecaoDiamantes).erase(segundo);
+			}else{
+				diferenca = (*maior)->getPeso()-(*segundo)->getPeso();
+				(*maior)->setPeso(diferenca);
+				(*this->colecaoDiamantes).erase(segundo);
 			}
 		}
+
+		//Retorna o resultado
+		if((*this->colecaoDiamantes).size()==1){
+			auto diamanteFinal = (*this->colecaoDiamantes).begin();
+			return (*diamanteFinal)->getPeso();
+		}else{
+			return 0;
+		}
+	}
+
+	//Se todos os pesos na coleção são iguais
+	bool Ourive::areEqual(){
+		auto primeiroElemento = (*this->colecaoDiamantes).begin();
+		auto outrosElementos=(*this->colecaoDiamantes).begin();
+		outrosElementos++;
+		for(outrosElementos;
+			outrosElementos!=(*this->colecaoDiamantes).end();
+			outrosElementos++){
+			if((*primeiroElemento)->getPeso()!=(*outrosElementos)->getPeso()){
+				return false;
+			}
+		}
+		return true;
 	}
 
 	void Ourive::imprimeColecao(){

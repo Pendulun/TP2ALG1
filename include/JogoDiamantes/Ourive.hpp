@@ -16,9 +16,10 @@ namespace JogoDiamantes{
 		void imprimeColecao();
 		unsigned int getPesoAt(unsigned int index);
 		Diamante* getDiamanteAt(unsigned int index);
+		bool areEqual();
 	public:
 		void criaColecao(std::string arqEntrada);
-		void brutaForca();
+		unsigned int brutaForca();
 		~Ourive();
 	};
 }
