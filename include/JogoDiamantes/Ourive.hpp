@@ -3,7 +3,9 @@
 #include <fstream>
 #include <string>
 #include <iostream>
+#include <iterator>
 #include <list>
+#include <stdlib.h>
 #include "Diamante.hpp"
 namespace JogoDiamantes{
 
@@ -11,6 +13,9 @@ namespace JogoDiamantes{
 	private:
 		std::list<Diamante*>* colecaoDiamantes=nullptr;
 		unsigned int tamColecao=0;
+		void imprimeColecao();
+		unsigned int getPesoAt(unsigned int index);
+		Diamante* getDiamanteAt(unsigned int index);
 	public:
 		void criaColecao(std::string arqEntrada);
 		void brutaForca();
