@@ -69,12 +69,18 @@ namespace JogoDiamantes{
 			std::advance(maior,indexMaior);
 			std::advance(segundo,indexSegundo);
 			if(isEqual){
+				Diamante* maiorErase = (*maior);
+				Diamante* segundoErase = (*segundo);
 				(*this->colecaoDiamantes).erase(maior);
 				(*this->colecaoDiamantes).erase(segundo);
+				delete maiorErase;
+				delete segundoErase;
 			}else{
+				Diamante* segundoErase = (*segundo);
 				diferenca = (*maior)->getPeso()-(*segundo)->getPeso();
 				(*maior)->setPeso(diferenca);
 				(*this->colecaoDiamantes).erase(segundo);
+				delete segundoErase;
 			}
 		}
 
