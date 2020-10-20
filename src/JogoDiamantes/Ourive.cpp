@@ -108,6 +108,74 @@ namespace JogoDiamantes{
 		return true;
 	}
 
+	unsigned int Ourive::dinamico(){
+		return subsetSum();
+	}
+
+	unsigned int Ourive::subsetSum(){
+		std::cout<<"Entrou SubsetSum"<<std::endl;
+		unsigned int resultado;
+		unsigned int soma = somaPesos();
+		unsigned int** M = new unsigned int*[this->tamColecao+1];
+		std::cout<<"1"<<std::endl;
+		for(unsigned int i =0;i<this->tamColecao+1;i++){
+			M[i] = new unsigned int[soma+1];
+		}
+
+		std::cout<<"2"<<std::endl;
+		for(int i=0;i<soma+1;i++){
+			M[0][i]=0;
+		}
+
+		std::cout<<"3"<<std::endl;
+
+		for(int i=1;i<this->tamColecao;i++){
+			std::cout<<"i: "<<i<<std::endl;
+			for(int w=0;w<soma;w++){
+				std::cout<<"w: "<<w<<std::endl;
+				if(soma<getPesoAt(i)){
+					std::cout<<"Saiu getPeso"<<std::endl;
+					M[i][w]=M[i-1][w];
+					std::cout<<"Saiu attrib"<<std::endl;
+				}else{
+					std::cout<<"Else"<<std::endl;
+					int conta = w-getPesoAt(i);
+					std::cout<<"conta: "<<conta<<std::endl;
+					M[i][w]=max(M[i-1][w], getPesoAt(i)+M[i-1][w-getPesoAt(i)]);
+					std::cout<<"Saiu else"<<std::endl;
+				}
+			}
+		}
+		std::cout<<"4"<<std::endl;
+		resultado = M[this->tamColecao][soma];
+		for(int i =0;i<this->tamColecao+1;i++){
+			delete[] M[i];
+		}
+		std::cout<<"5"<<std::endl;
+		delete[] M;
+		
+		return resultado;
+	}
+
+	unsigned int Ourive::max(unsigned int peso1, unsigned int peso2){
+		if(peso1>peso2){
+			return peso1;
+		}else{
+			return peso2;
+		}
+	}
+
+	unsigned int Ourive::somaPesos(){
+		unsigned int soma=0;
+		for(auto iterador=(*this->colecaoDiamantes).begin();
+			iterador!=(*this->colecaoDiamantes).end();
+			iterador++){
+			soma+=(*iterador)->getPeso();
+		}
+		return soma;
+	}
+
+
 	void Ourive::imprimeColecao(){
 		unsigned int count=0;
 		for(auto iterador=(*this->colecaoDiamantes).begin();
@@ -119,8 +187,10 @@ namespace JogoDiamantes{
 	}
 
 	unsigned int Ourive::getPesoAt(unsigned int index){
+		std::cout<<"getPesoAt: "<<index<<std::endl;
 		auto iterador=(*this->colecaoDiamantes).begin();
 		std::advance(iterador,index);
+		std::cout<<"Peso: "<<(*iterador)->getPeso()<<std::endl;
 		return (*iterador)->getPeso();
 	}
 

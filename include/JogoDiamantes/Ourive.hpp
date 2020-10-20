@@ -5,6 +5,7 @@
 #include <iostream>
 #include <iterator>
 #include <list>
+#include <vector>
 #include <stdlib.h>
 #include "Diamante.hpp"
 namespace JogoDiamantes{
@@ -17,9 +18,13 @@ namespace JogoDiamantes{
 		unsigned int getPesoAt(unsigned int index);
 		Diamante* getDiamanteAt(unsigned int index);
 		bool areEqual();
+		unsigned int somaPesos();
+		unsigned int max(unsigned int peso1, unsigned int peso2);
+		unsigned int subsetSum();
 	public:
 		void criaColecao(std::string arqEntrada);
 		unsigned int forcaBruta();
+		unsigned int dinamico();
 		~Ourive();
 	};
 }
