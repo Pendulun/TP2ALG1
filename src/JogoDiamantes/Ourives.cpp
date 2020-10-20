@@ -36,6 +36,16 @@ namespace JogoDiamantes{
 			//Acha os dois maiores
 			unsigned int maiorPeso=0,segundoPeso=0,indexMaior=0,indexSegundo=0,count=0,diferenca=0;
 			bool isEqual=areEqual();
+
+			if(isEqual){
+				if((*this->colecaoDiamantes).size()%2==0){
+					return 0;
+				}else{
+					auto elemento=(*this->colecaoDiamantes).begin();
+					return (*elemento)->getPeso();
+				}
+			}
+
 			for(auto elemento=(*this->colecaoDiamantes).begin();
 				elemento!=(*this->colecaoDiamantes).end();
 				elemento++){
@@ -48,16 +58,16 @@ namespace JogoDiamantes{
 					count++;
 					continue;
 				}
-				if(isEqual){
+				/*if(isEqual){
 					segundoPeso=(*elemento)->getPeso();
 					indexSegundo=count;
 					break;
-				}else{
+				}else{*/
 					if((*elemento)->getPeso()>segundoPeso && (*elemento)->getPeso()!=maiorPeso){
 						segundoPeso=(*elemento)->getPeso();
 						indexSegundo=count;
 					}
-				}
+				//}
 				count++;
 
 			}
@@ -66,20 +76,20 @@ namespace JogoDiamantes{
 			auto segundo = (*this->colecaoDiamantes).begin();
 			std::advance(maior,indexMaior);
 			std::advance(segundo,indexSegundo);
-			if(isEqual){
+			/*if(isEqual){
 				Diamante* maiorErase = (*maior);
 				Diamante* segundoErase = (*segundo);
 				(*this->colecaoDiamantes).erase(maior);
 				(*this->colecaoDiamantes).erase(segundo);
 				delete maiorErase;
 				delete segundoErase;
-			}else{
+			}else{*/
 				Diamante* segundoErase = (*segundo);
 				diferenca = (*maior)->getPeso()-(*segundo)->getPeso();
 				(*maior)->setPeso(diferenca);
 				(*this->colecaoDiamantes).erase(segundo);
 				delete segundoErase;
-			}
+			//}
 		}
 
 		//Retorna o resultado

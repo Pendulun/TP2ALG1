@@ -12,8 +12,8 @@ int main(int argc, char *argv[]){
 				std::string arq_entrada = argv[1];
 				JogoDiamantes::Ourives* ourives = new JogoDiamantes::Ourives();
 				ourives->criaColecao(arq_entrada);
-				//std::cout<<ourive->naoDinamico()<<std::endl;
-				std::cout<<ourives->dinamico()<<std::endl;
+				std::cout<<ourives->naoDinamico()<<std::endl;
+				//std::cout<<ourives->dinamico()<<std::endl;
 				delete ourives;
 				//auto stop = std::chrono::high_resolution_clock::now();
 				//auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);

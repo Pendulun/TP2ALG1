@@ -26,4 +26,4 @@ clean:
 	rm -f $(BUILD)*/*.o
 
 mem:
-	valgrind --leak-check=full --show-leak-kinds=all $(EXEC) ./testcases/EX0
+	valgrind --leak-check=full --show-leak-kinds=all $(EXEC) ./testcases/EX5
