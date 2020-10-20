@@ -25,7 +25,7 @@ namespace JogoDiamantes{
 		void criaColecao(std::string arqEntrada);
 		unsigned int naoDinamico();
 		unsigned int dinamico();
-		~Ourive();
+		~Ourives();
 	};
 }
 #endif
