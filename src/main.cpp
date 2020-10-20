@@ -12,13 +12,13 @@ int main(int argc, char *argv[]){
 				std::string arq_entrada = argv[1];
 				JogoDiamantes::Ourive* ourive = new JogoDiamantes::Ourive();
 				ourive->criaColecao(arq_entrada);
-				//std::cout<<ourive->forcaBruta()<<std::endl;
+				//std::cout<<ourive->naoDinamico()<<std::endl;
 				std::cout<<ourive->dinamico()<<std::endl;
 				delete ourive;
 				//auto stop = std::chrono::high_resolution_clock::now();
 				//auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
 				//std::cout<<"Duracao: "<<duration.count()<<std::endl;
-			//}
+		//}
 		
 	}else{
 		std::cout<< "Nao foi detectado nenhum arquivo de entrada"<<std::endl;

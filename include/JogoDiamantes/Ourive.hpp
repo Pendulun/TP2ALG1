@@ -23,7 +23,7 @@ namespace JogoDiamantes{
 		unsigned int subsetSum();
 	public:
 		void criaColecao(std::string arqEntrada);
-		unsigned int forcaBruta();
+		unsigned int naoDinamico();
 		unsigned int dinamico();
 		~Ourive();
 	};

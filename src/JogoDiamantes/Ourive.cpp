@@ -16,9 +16,7 @@ namespace JogoDiamantes{
 		std::fstream fs;
 		fs.open(arqEntrada, std::fstream::in);
 		if(fs.is_open()){
-	  		unsigned int K=0;
-	  		fs>>K;
-	  		this->tamColecao = K;
+	  		fs>>this->tamColecao;
 	  		this->colecaoDiamantes = new std::list<Diamante*>[this->tamColecao];
 	  		unsigned int peso=0;
 	  		for(unsigned int linha=0;linha<this->tamColecao;linha++){
@@ -33,7 +31,7 @@ namespace JogoDiamantes{
   		}
 	}
 
-	unsigned int Ourive::forcaBruta(){
+	unsigned int Ourive::naoDinamico(){
 		while((*this->colecaoDiamantes).size()>1){
 			//Acha os dois maiores
 			unsigned int maiorPeso=0,segundoPeso=0,indexMaior=0,indexSegundo=0,count=0,diferenca=0;
@@ -113,48 +111,36 @@ namespace JogoDiamantes{
 	}
 
 	unsigned int Ourive::subsetSum(){
-		std::cout<<"Entrou SubsetSum"<<std::endl;
-		unsigned int resultado;
+		unsigned int somaMaisProxima;
 		unsigned int soma = somaPesos();
+		unsigned int nColunas = (soma/2)+1;
 		unsigned int** M = new unsigned int*[this->tamColecao+1];
-		std::cout<<"1"<<std::endl;
 		for(unsigned int i =0;i<this->tamColecao+1;i++){
-			M[i] = new unsigned int[soma+1];
+			M[i] = new unsigned int[nColunas];
 		}
 
-		std::cout<<"2"<<std::endl;
-		for(int i=0;i<soma+1;i++){
+		for(unsigned int i=0;i<nColunas;i++){
 			M[0][i]=0;
 		}
 
-		std::cout<<"3"<<std::endl;
-
-		for(int i=1;i<this->tamColecao;i++){
-			std::cout<<"i: "<<i<<std::endl;
-			for(int w=0;w<soma;w++){
-				std::cout<<"w: "<<w<<std::endl;
-				if(soma<getPesoAt(i)){
-					std::cout<<"Saiu getPeso"<<std::endl;
-					M[i][w]=M[i-1][w];
-					std::cout<<"Saiu attrib"<<std::endl;
+		for(unsigned int i=1;i<this->tamColecao+1;i++){
+			for(unsigned int w=0;w<nColunas;w++){
+				unsigned int i_1 = i-1;
+				unsigned int pesoDiamante = getPesoAt(i_1);
+				if(w<pesoDiamante){
+					M[i][w]=M[i_1][w];
 				}else{
-					std::cout<<"Else"<<std::endl;
-					int conta = w-getPesoAt(i);
-					std::cout<<"conta: "<<conta<<std::endl;
-					M[i][w]=max(M[i-1][w], getPesoAt(i)+M[i-1][w-getPesoAt(i)]);
-					std::cout<<"Saiu else"<<std::endl;
+					M[i][w]=max(M[i_1][w], pesoDiamante+M[i_1][w-pesoDiamante]);
 				}
 			}
 		}
-		std::cout<<"4"<<std::endl;
-		resultado = M[this->tamColecao][soma];
-		for(int i =0;i<this->tamColecao+1;i++){
+
+		somaMaisProxima = M[this->tamColecao][soma/2];
+		for(unsigned int i = 0;i<this->tamColecao+1;i++){
 			delete[] M[i];
 		}
-		std::cout<<"5"<<std::endl;
 		delete[] M;
-		
-		return resultado;
+		return (soma-somaMaisProxima)-somaMaisProxima;
 	}
 
 	unsigned int Ourive::max(unsigned int peso1, unsigned int peso2){
@@ -175,28 +161,9 @@ namespace JogoDiamantes{
 		return soma;
 	}
 
-
-	void Ourive::imprimeColecao(){
-		unsigned int count=0;
-		for(auto iterador=(*this->colecaoDiamantes).begin();
-			iterador!=(*this->colecaoDiamantes).end();
-			iterador++){
-			std::cout<<"Elemento: "<<count<<" Peso: "<<(*iterador)->getPeso()<<std::endl;
-			count++;
-		}
-	}
-
 	unsigned int Ourive::getPesoAt(unsigned int index){
-		std::cout<<"getPesoAt: "<<index<<std::endl;
 		auto iterador=(*this->colecaoDiamantes).begin();
 		std::advance(iterador,index);
-		std::cout<<"Peso: "<<(*iterador)->getPeso()<<std::endl;
 		return (*iterador)->getPeso();
-	}
-
-	Diamante* Ourive::getDiamanteAt(unsigned int index){
-		auto iterador=(*this->colecaoDiamantes).begin();
-		std::advance(iterador,index);
-		return (*iterador);
 	}
 }
