@@ -7,14 +7,14 @@ SRC=./src/
 INCLUDE=./include/
 JOGODIM=JogoDiamantes/
 
-$(EXEC):	$(BUILD)main.o $(BUILD)$(JOGODIM)Ourive.o 
+$(EXEC):	$(BUILD)main.o $(BUILD)$(JOGODIM)Ourives.o 
 	$(CC) $(CFLAGS) -o $(EXEC) $(BUILD)main.o $(BUILD)$(JOGODIM)*.o 
 
-$(BUILD)main.o:	$(SRC)main.cpp $(BUILD)$(JOGODIM)Ourive.o  
+$(BUILD)main.o:	$(SRC)main.cpp $(BUILD)$(JOGODIM)Ourives.o  
 	$(CC) $(CFLAGS) -I $(INCLUDE)$(JOGODIM) -c $(SRC)main.cpp -o $(BUILD)main.o
 
-$(BUILD)$(JOGODIM)Ourive.o: $(SRC)$(JOGODIM)Ourive.cpp $(INCLUDE)$(JOGODIM)Ourive.hpp $(BUILD)$(JOGODIM)Diamante.o
-	$(CC) $(CFLAGS) -I $(INCLUDE)$(JOGODIM) -c $(SRC)$(JOGODIM)Ourive.cpp -o $(BUILD)$(JOGODIM)Ourive.o
+$(BUILD)$(JOGODIM)Ourives.o: $(SRC)$(JOGODIM)Ourives.cpp $(INCLUDE)$(JOGODIM)Ourives.hpp $(BUILD)$(JOGODIM)Diamante.o
+	$(CC) $(CFLAGS) -I $(INCLUDE)$(JOGODIM) -c $(SRC)$(JOGODIM)Ourives.cpp -o $(BUILD)$(JOGODIM)Ourives.o
 
 $(BUILD)$(JOGODIM)Diamante.o: $(SRC)$(JOGODIM)Diamante.cpp $(INCLUDE)$(JOGODIM)Diamante.hpp 
 	$(CC) $(CFLAGS) -I $(INCLUDE)$(JOGODIM) -c $(SRC)$(JOGODIM)Diamante.cpp -o $(BUILD)$(JOGODIM)Diamante.o

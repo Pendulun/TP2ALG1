@@ -1,5 +1,5 @@
-#ifndef OURIVE_H
-#define OURIVE_H
+#ifndef OURIVES_H
+#define OURIVES_H
 #include <fstream>
 #include <string>
 #include <iostream>
@@ -10,7 +10,7 @@
 #include "Diamante.hpp"
 namespace JogoDiamantes{
 
-	class Ourive{
+	class Ourives{
 	private:
 		std::list<Diamante*>* colecaoDiamantes=nullptr;
 		unsigned int tamColecao=0;

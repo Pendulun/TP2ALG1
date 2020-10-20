@@ -1,20 +1,20 @@
 #include <string>
 #include <iostream>
 #include <string>
-#include "Ourive.hpp"
+#include "Ourives.hpp"
 #include <chrono>
-#define NUM_VEZES 10
+//#define NUM_VEZES 10
    
 int main(int argc, char *argv[]){
 	if(argc>1){
 		//for(unsigned int i = 0;i<NUM_VEZES;i++){
 			 	//auto start = std::chrono::high_resolution_clock::now();
 				std::string arq_entrada = argv[1];
-				JogoDiamantes::Ourive* ourive = new JogoDiamantes::Ourive();
-				ourive->criaColecao(arq_entrada);
+				JogoDiamantes::Ourives* ourives = new JogoDiamantes::Ourives();
+				ourives->criaColecao(arq_entrada);
 				//std::cout<<ourive->naoDinamico()<<std::endl;
-				std::cout<<ourive->dinamico()<<std::endl;
-				delete ourive;
+				std::cout<<ourives->dinamico()<<std::endl;
+				delete ourives;
 				//auto stop = std::chrono::high_resolution_clock::now();
 				//auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
 				//std::cout<<"Duracao: "<<duration.count()<<std::endl;

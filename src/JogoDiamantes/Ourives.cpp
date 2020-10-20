@@ -1,9 +1,9 @@
-#include "Ourive.hpp"
+#include "Ourives.hpp"
 
 
 namespace JogoDiamantes{
 
-	Ourive::~Ourive(){
+	Ourives::~Ourives(){
 		for(auto iteradorColecao=(*this->colecaoDiamantes).begin();
 			iteradorColecao!=(*this->colecaoDiamantes).end();
 			iteradorColecao++){
@@ -12,7 +12,7 @@ namespace JogoDiamantes{
 		delete[] this->colecaoDiamantes;
 	}
 
-	void Ourive::criaColecao(std::string arqEntrada){
+	void Ourives::criaColecao(std::string arqEntrada){
 		std::fstream fs;
 		fs.open(arqEntrada, std::fstream::in);
 		if(fs.is_open()){
@@ -31,7 +31,7 @@ namespace JogoDiamantes{
   		}
 	}
 
-	unsigned int Ourive::naoDinamico(){
+	unsigned int Ourives::naoDinamico(){
 		while((*this->colecaoDiamantes).size()>1){
 			//Acha os dois maiores
 			unsigned int maiorPeso=0,segundoPeso=0,indexMaior=0,indexSegundo=0,count=0,diferenca=0;
@@ -92,7 +92,7 @@ namespace JogoDiamantes{
 	}
 
 	//Se todos os pesos na coleção são iguais
-	bool Ourive::areEqual(){
+	bool Ourives::areEqual(){
 		auto primeiroElemento = (*this->colecaoDiamantes).begin();
 		auto outrosElementos=(*this->colecaoDiamantes).begin();
 		outrosElementos++;
@@ -106,11 +106,11 @@ namespace JogoDiamantes{
 		return true;
 	}
 
-	unsigned int Ourive::dinamico(){
+	unsigned int Ourives::dinamico(){
 		return subsetSum();
 	}
 
-	unsigned int Ourive::subsetSum(){
+	unsigned int Ourives::subsetSum(){
 		unsigned int somaMaisProxima;
 		unsigned int soma = somaPesos();
 		unsigned int nColunas = (soma/2)+1;
@@ -143,7 +143,7 @@ namespace JogoDiamantes{
 		return (soma-somaMaisProxima)-somaMaisProxima;
 	}
 
-	unsigned int Ourive::max(unsigned int peso1, unsigned int peso2){
+	unsigned int Ourives::max(unsigned int peso1, unsigned int peso2){
 		if(peso1>peso2){
 			return peso1;
 		}else{
@@ -151,7 +151,7 @@ namespace JogoDiamantes{
 		}
 	}
 
-	unsigned int Ourive::somaPesos(){
+	unsigned int Ourives::somaPesos(){
 		unsigned int soma=0;
 		for(auto iterador=(*this->colecaoDiamantes).begin();
 			iterador!=(*this->colecaoDiamantes).end();
@@ -161,7 +161,7 @@ namespace JogoDiamantes{
 		return soma;
 	}
 
-	unsigned int Ourive::getPesoAt(unsigned int index){
+	unsigned int Ourives::getPesoAt(unsigned int index){
 		auto iterador=(*this->colecaoDiamantes).begin();
 		std::advance(iterador,index);
 		return (*iterador)->getPeso();
